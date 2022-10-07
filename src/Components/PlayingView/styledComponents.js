@@ -3,6 +3,9 @@ import styled from 'styled-components'
 export const PlayingContainer = styled.div`
   background-color: #223a5f;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const HeaderContainer = styled.div`
@@ -12,6 +15,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 `
 
 export const NamesContainer = styled.div`
@@ -61,7 +65,6 @@ export const GameContainer = styled.div`
   justify-content: center;
   align-self: center;
   margin: 100px;
-  margin-left: 300px;
 `
 export const GameResultsContainer = styled.div`
   display: flex;
@@ -87,4 +90,7 @@ export const ResultContainer = styled.div`
 `
 export const GameCont = styled.div`
   display: flex;
+`
+export const RulesButtonContainer = styled.div`
+  align-self: flex-end;
 `

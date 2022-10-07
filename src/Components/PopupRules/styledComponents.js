@@ -7,11 +7,12 @@ export const RulesButton = styled.button`
   border-radius: 10px;
   height: 30px;
   width: 120px;
+  align-self: flex-end;
 `
 
 export const RulesImage = styled.img`
-  height: 300px;
-  width: 300px;
+  height: 150px;
+  width: 150px;
 `
 export const CloseBtn = styled.button`
   align-self: flex-end;

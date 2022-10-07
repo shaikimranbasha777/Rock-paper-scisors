@@ -12,11 +12,15 @@ import {
 } from './styledComponents'
 
 const PopupRules = () => (
-  <Popup model trigger={<RulesButton type="button"> Rules</RulesButton>}>
+  <Popup
+    model
+    trigger={<RulesButton type="button"> Rules</RulesButton>}
+    className="popup-content"
+  >
     {close => (
       <PopupContainer>
         <CloseBtn type="button" onClick={() => close()}>
-          <RiCloseLine size={40} data-testid="close" />
+          <RiCloseLine size={20} data-testid="close" />
         </CloseBtn>
 
         <RulesImage

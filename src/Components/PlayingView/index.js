@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unused-state */
 import {Component} from 'react'
 
@@ -38,77 +39,150 @@ const choicesList = [
   },
 ]
 const randomIndex = Math.floor(Math.random() * 3)
-let displayText = ''
+const yourChoiceList = []
 
 class PlayingView extends Component {
   state = {
     gameInProgress: true,
-    yourChoiceList: [],
     score: 0,
+    displayText: '',
   }
 
   onRockButton = () => {
-    const {yourChoiceList} = this.state
-
     this.setState(prevState => ({
-      yourChoiceList: [...prevState.yourChoiceList, choicesList[0]],
       gameInProgress: !prevState.gameInProgress,
     }))
 
-    if (displayText === 'won') {
+    yourChoiceList.push(choicesList[0])
+
+    console.log(yourChoiceList)
+
+    if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'ROCK' &&
+      choicesList[randomIndex].id === 'SCISSORS'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score + 1,
+        displayText: 'YOU WON',
+      }))
+    } else if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'ROCK' &&
+      choicesList[randomIndex].id === 'PAPER'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score - 1,
+        displayText: 'YOU LOSE',
+      }))
+    } else if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'ROCK' &&
+      choicesList[randomIndex].id === 'ROCK'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score,
+        displayText: 'IT IS DRAW',
+      }))
+    }
+
+    /* if (displayText === 'won') {
       this.setState(prevState => ({score: prevState.score + 1}))
     } else if (displayText === 'lose') {
       this.setState(prevState => ({score: prevState.score - 1}))
     } else {
       this.setState(prevState => ({score: prevState.score}))
     }
-    console.log(choicesList[randomIndex].id)
-    console.log(yourChoiceList)
+    */
   }
 
   onPaperButton = () => {
-    const {yourChoiceList} = this.state
-
     this.setState(prevState => ({
-      yourChoiceList: [...prevState.yourChoiceList, choicesList[2]],
       gameInProgress: !prevState.gameInProgress,
     }))
+
+    yourChoiceList.push(choicesList[2])
+
+    if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'PAPER' &&
+      choicesList[randomIndex].id === 'SCISSORS'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score - 1,
+        displayText: 'YOU LOSE',
+      }))
+    } else if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'PAPER' &&
+      choicesList[randomIndex].id === 'ROCK'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score + 1,
+        displayText: 'YOU WON',
+      }))
+    } else if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'PAPER' &&
+      choicesList[randomIndex].id === 'PAPER'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score,
+        displayText: 'IT IS DRAW',
+      }))
+    }
+
+    /*
     if (displayText === 'won') {
       this.setState(prevState => ({score: prevState.score + 1}))
     } else if (displayText === 'lose') {
       this.setState(prevState => ({score: prevState.score - 1}))
     } else {
       this.setState(prevState => ({score: prevState.score}))
-    }
-    console.log(yourChoiceList)
+    } */
   }
 
   onScissorsButton = () => {
-    const {yourChoiceList} = this.state
-
     this.setState({gameInProgress: false})
 
-    this.setState(prevState => ({
-      yourChoiceList: [...prevState.yourChoiceList, choicesList[1]],
-    }))
+    yourChoiceList.push(choicesList[1])
 
+    if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'SCISSORS' &&
+      choicesList[randomIndex].id === 'ROCK'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score - 1,
+        displayText: 'YOU LOSE',
+      }))
+    } else if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'SCISSORS' &&
+      choicesList[randomIndex].id === 'PAPER'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score + 1,
+        displayText: 'YOU WON',
+      }))
+    } else if (
+      yourChoiceList[yourChoiceList.length - 1].id === 'SCISSORS' &&
+      choicesList[randomIndex].id === 'SCISSORS'
+    ) {
+      this.setState(prevState => ({
+        score: prevState.score,
+        displayText: 'IT IS DRAW',
+      }))
+    }
+
+    /*
     if (displayText === 'won') {
       this.setState(prevState => ({score: prevState.score + 1}))
     } else if (displayText === 'lose') {
       this.setState(prevState => ({score: prevState.score - 1}))
     } else {
       this.setState(prevState => ({score: prevState.score}))
-    }
-    console.log(yourChoiceList)
+    } */
   }
 
   onPlayAgain = () => {
     this.setState({gameInProgress: true})
   }
 
-  renderGameResults = () => {
-    const {yourChoiceList} = this.state
-
+  /*
+  renderDisplayText = () => {
     if (
       yourChoiceList[yourChoiceList.length - 1].id === 'ROCK' &&
       choicesList[randomIndex].id === 'PAPER'
@@ -142,8 +216,11 @@ class PlayingView extends Component {
     } else {
       displayText = 'draw'
     }
+  }
+*/
 
-    console.log(displayText)
+  renderGameResults = () => {
+    const {displayText} = this.state
 
     return (
       <GameResultsContainer>
@@ -164,9 +241,7 @@ class PlayingView extends Component {
           </GameImageContainer>
         </GameCont>
         <ResultContainer>
-          {displayText === 'won' && <ScoreValue>YOU WON</ScoreValue>}
-          {displayText === 'lose' && <ScoreValue>YOU LOSE</ScoreValue>}
-          {displayText === 'draw' && <ScoreValue>IT IS DRAW</ScoreValue>}
+          <ScoreValue>{displayText}</ScoreValue>
           <RulesButton type="button" onClick={this.onPlayAgain}>
             PLAY AGAIN
           </RulesButton>
